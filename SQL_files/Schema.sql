@@ -1,0 +1,40 @@
+CREATE TABLE Users (
+  UserID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(100),
+  Email VARCHAR(100),
+  Country VARCHAR(50)
+);
+
+CREATE TABLE Stories (
+  StoryID INT PRIMARY KEY AUTO_INCREMENT,
+  Title VARCHAR(255),
+  Content TEXT,
+  UserID INT,
+  PublishDate DATE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Views (
+  ViewID INT PRIMARY KEY AUTO_INCREMENT,
+  StoryID INT,
+  UserID INT,
+  ViewDate DATE,
+  FOREIGN KEY (StoryID) REFERENCES Stories(StoryID),
+  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Followers (
+  FollowerID INT PRIMARY KEY AUTO_INCREMENT,
+  UserID INT,
+  FollowerID INT,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  FOREIGN KEY (FollowerID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Earnings (
+  EarningID INT PRIMARY KEY AUTO_INCREMENT,
+  UserID INT,
+  Amount DECIMAL(10, 2),
+  Date DATE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
